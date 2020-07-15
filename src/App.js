@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
-import Person from './Person/Person';
+import UserOutput from "./UserOutput/UserOutput";
+import UserInput from "./UserInput/UserInput";
 
 class App extends Component {
     state = {
@@ -36,19 +37,31 @@ class App extends Component {
         )
     }
 
+    state = {
+        ...this.state,
+        username: ['jjcedeno.15']
+    };
+
+
+    change = (event) => {
+        this.setState(
+            {
+                ...this.state,
+                username: [event.target.value]
+            }
+        )
+    };
+
     render() {
-        const style = {
-            backgroundColor: 'white',
-            font: 'inherit',
-            border: '1x solid blue',
-            padding: '8px',
-            cursor: 'pointer'
-        };
         return (
             <div className="App">
                 <h1>Hi, I'm a React App</h1>
                 <p>This is really working!</p>
-                <button style={style} onClick={() => this.switchNameHandler('Maximilian!!!!')}>Switch Name</button>
+                <p>This is really working!</p>
+                <UserOutput username={this.state.username[0]}/>
+                <UserInput change={this.change}/>
+                <UserOutput username={this.state.username[0]}/>
+                {/*                <button onClick={() => this.switchNameHandler('Maximilian!!!!')}>Switch Name</button>
                 <Person
                     name={this.state.persons[0].name}
                     age={this.state.persons[0].age}
@@ -64,7 +77,7 @@ class App extends Component {
                 <Person
                     name={this.state.persons[2].name}
                     age={this.state.persons[2].age}
-                />
+                />*/}
             </div>
         );
         // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Does this work now?'));
