@@ -1,15 +1,11 @@
 import React, {Component} from 'react';
 import './App.css';
 import Person from "./Person/Person";
-import ValidationComponent from "./ValidationComponent/ValidationComponent";
-import CharComponent from "./CharComponent/CharComponent";
 
 class App extends Component {
     state = {
         persons: [
-            {name: 'Max', age: 28},
-            {name: 'Manu', age: 29},
-            {name: 'Stephanie', age: 26}
+            {name: 'Max', age: 28}
         ],
         otherState: 'some other value',
         showPersons: false,
@@ -44,17 +40,21 @@ class App extends Component {
         )
     }
 
-    textLength = (event) => {
-        const state = {...this.state};
-        state.textLength = event.target.value.length;
-        state.text = event.target.value;
-        this.setState(state);
-    };
 
     render() {
+        const style = {
+            backgroundColor: 'green',
+            color: 'white',
+            font: 'inherit',
+            border: '1px solid blue',
+            padding: '8px',
+            cursor: 'pointer',
+            ':hover': {
+                backgroundColor: 'lightgreen',
+                color: 'black'
+            }
+        };
         let persons = null;
-        let text = null;
-        let charComponent = null;
         if (this.state.showPersons) {
             persons =
                 <div>
@@ -67,28 +67,27 @@ class App extends Component {
                             changed={(event) => this.nameChangeHandler(event, index)}
                         />
                     )}
-                </div>
+                </div>;
+            style.backgroundColor = 'red';
+            style[":hover"] = {
+                backgroundColor: 'lightred',
+                color: 'black'
+            }
         }
-        if (this.state.textLength > 5) {
-            text = <ValidationComponent text="Text too large"/>
-        } else {
-            text = <ValidationComponent text="Text too short"/>
+
+        const classes = [];// "red bold"
+        if (this.state.persons.length <= 2) {
+            classes.push('red'); //classes = ['red']
         }
-        if (this.state.textLength > 0) {
-            let array = this.state.text.split('');
-            charComponent = array.map(letter => <CharComponent key={letter.index}
-                                                               onClick={() => this.handleClick(letter.index)}
-                                                               letter={letter}/>);
+        if (this.state.persons <= 1) {
+            classes.push('bold'); //classes = ['red','bold']
         }
         return (
-            <div className="App">
+            <div>
                 <h1>Hi, I'm a React App</h1>
-                <p>This is really working!</p>
-                <input type='text' onChange={this.textLength}/>
-                {text}
-                <button onClick={this.togglePersonsHandler}>Toggle Persons</button>
+                <p className={classes.join(' ')}>This is really working!</p>
+                <button style={style} onClick={this.togglePersonsHandler}>Toggle Persons</button>
                 {persons}
-                {charComponent}
             </div>
         );
     }
