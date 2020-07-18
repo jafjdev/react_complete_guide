@@ -1,0 +1,26 @@
+.Navbar {
+    margin-top: 0px !important;
+    display: flex;
+    background-color: rgb(78, 124, 138);
+    border-bottom: 1px solid #ffffff;
+    border-color: rgba(41, 66, 78, 0.4);
+    width: 100%;
+    height: auto;
+    font-family: "Roboto", serif;
+}
+
+.leftSide{
+    margin-left: 40px;
+    justify-content: center;
+    align-items: center;
+}
+
+.rightSide{
+    align-items: center;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 40px;
+}
+
+
