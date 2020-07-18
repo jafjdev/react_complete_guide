@@ -60,7 +60,9 @@ class App extends Component {
                 <Navbar/>
                 <Cockpit showPersons={this.state.showPersons}
                          persons={this.state.persons}
-                         clicked={this.togglePersonsHandler}/>
+                         clicked={this.togglePersonsHandler}
+                         title={this.props.appTitle}
+                />
                 {persons}
             </div>
         );
