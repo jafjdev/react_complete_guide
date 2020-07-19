@@ -1,7 +1,12 @@
-import React from 'react';
+import React ,{useEffect}from 'react';
 import classes from './Cockpit.css';
 
 const Cockpit = (props) => {
+    useEffect(()=>{
+        //will run in every componentlifecycle - every render
+       console.log(('[Cockpit.js] useeffect'))
+        //HTTP request...
+    });
     const assignedClasses = [];// "red bold"
     let btnClass = '';
     if (props.showPersons) {
