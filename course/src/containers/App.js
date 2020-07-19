@@ -17,7 +17,8 @@ class App extends Component {
         otherState: 'some other value',
         showPersons: false,
         text: '',
-        textLength: 1
+        textLength: 1,
+        showCockpit: true
     };
 
     static getDerivedStateFromProps(props, state) {
@@ -33,10 +34,13 @@ class App extends Component {
         console.log('[App.JS] componentDidUpdate');
     }
 
-    shouldComponentUpdate() {
-        console.log('[App.JS] shouldComponentComponent ')
-
-        return true;
+    shouldComponentUpdate(nextProps, nextState) {
+        console.log('[App.JS] shouldComponentComponent ');
+        // si se mdifico la lista de personas o una persona retornara true
+        if (nextProps.persons !== this.props.persons) {
+            return true;
+        } else
+            return false;
     }
 
     deletePersonHandler = (index) => {
@@ -48,7 +52,7 @@ class App extends Component {
     togglePersonsHandler = () => {
         const doesShow = this.state.showPersons;
         this.setState({showPersons: !doesShow});
-    }
+    };
 
     nameChangeHandler = (event, index) => {
         /*const personIndex - this.state.persons.findIndex(p =>{
@@ -64,7 +68,7 @@ class App extends Component {
                 persons: persons
             }
         )
-    }
+    };
 
 
     render() {
@@ -74,19 +78,22 @@ class App extends Component {
             persons =
                 <Persons persons={this.state.persons}
                          clicked={this.deletePersonHandler}
-                         changed={this.nameChangeHandler}/>
-
+                         changed={this.nameChangeHandler}/>;
         }
 
 
         return (
             <div>
                 <Navbar/>
-                <Cockpit showPersons={this.state.showPersons}
-                         persons={this.state.persons}
-                         clicked={this.togglePersonsHandler}
-                         title={this.props.appTitle}
-                />
+                <button onClick={() => this.setState({showCockpit: false})}>Remove Cockpit</button>
+                {
+                    this.state.showCockpit ?
+                        <Cockpit showPersons={this.state.showPersons}
+                                 personsLength={this.state.persons.length}
+                                 clicked={this.togglePersonsHandler}
+                                 title={this.props.appTitle}
+                        /> : null
+                }
                 {persons}
             </div>
         );

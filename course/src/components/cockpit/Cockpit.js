@@ -1,21 +1,24 @@
-import React ,{useEffect}from 'react';
+import React, {useEffect} from 'react';
 import classes from './Cockpit.css';
 
 const Cockpit = (props) => {
-    useEffect(()=>{//funciona como componentDidmount (solo funciona al inicio) si el array se deja empty
+    useEffect(() => {//funciona como componentDidmount (solo funciona al inicio) si el array se deja empty
         //will run in every componentlifecycle - every render
-       console.log(('[Cockpit.js] useeffect'))
+        console.log(('[Cockpit.js] useeffect'));
         //HTTP request...
-    },[props.persons]);
+        return () => { //funcinara antes del primer useEffect pero luego del primer render cycle
+            console.log('[Cockpit.js] Cleanup work in useEffect')
+        };
+    }, [props.personsLength]);
     const assignedClasses = [];// "red bold"
     let btnClass = '';
     if (props.showPersons) {
         btnClass = classes.Red;
     }
-    if (props.persons.length <= 2) {
+    if (props.personsLength.length <= 2) {
         assignedClasses.push('red'); //classes = ['red']
     }
-    if (props.persons <= 1) {
+    if (props.personsLength <= 1) {
         assignedClasses.push('bold'); //classes = ['red','bold']
     }
 
@@ -26,6 +29,6 @@ const Cockpit = (props) => {
             <button className={btnClass} onClick={props.clicked}>Toggle Persons</button>
         </div>
     );
-}
+};
 
-export default Cockpit;
+export default React.memo(Cockpit);
