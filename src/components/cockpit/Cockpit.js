@@ -2,11 +2,11 @@ import React ,{useEffect}from 'react';
 import classes from './Cockpit.css';
 
 const Cockpit = (props) => {
-    useEffect(()=>{
+    useEffect(()=>{//funciona como componentDidmount (solo funciona al inicio) si el array se deja empty
         //will run in every componentlifecycle - every render
        console.log(('[Cockpit.js] useeffect'))
         //HTTP request...
-    });
+    },[props.persons]);
     const assignedClasses = [];// "red bold"
     let btnClass = '';
     if (props.showPersons) {
